@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: helloworld-josueks
+  labels:
+    app: helloworld
+spec:
+  containers:
+  - name: k8s-demo-go
+    image: josuegiron/k8s-demo-go:1.0.0
+    ports: 
+    - name: port-hw
+      containerPort: 8080
+
