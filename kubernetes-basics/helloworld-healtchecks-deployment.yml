@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helloworld-deployment
+spec:
+  replicas: 3
+  revisionHistoryLimit: 100
+  selector:
+    matchLabels:
+      app: helloworld-app
+  template: 
+    metadata:
+      labels:
+        app: helloworld-app
+    spec:
+      containers:
+      - name: k8s-demo-go-container
+        image: josuegiron/k8s-demo-go:2.0.0
+        ports:
+        - containerPort: 8080
+        # indicate if the pod is running
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 15
+          timeoutSeconds: 30
+        # indicate if the pod is ready to server requests
+        redinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 15
+          timeoutSeconds: 30
